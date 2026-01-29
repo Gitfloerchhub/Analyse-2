@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Agentenanalyse</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .panel {
+        background: #000;
+        padding: 30px;
+        border-radius: 16px;
+        border: 2px solid #333;
+        box-shadow: 0 0 30px rgba(0,0,0,0.8);
+        max-width: 480px;
+        width: 100%;
+        text-align: center;
+    }
+
+    h1 {
+        margin-top: 0;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 20px;
+    }
+
+    input[type="file"] {
+        margin-top: 20px;
+        padding: 10px;
+        background: #111;
+        border: 1px solid #444;
+        border-radius: 8px;
+        color: #fff;
+        width: 100%;
+    }
+
+    #scan {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: linear-gradient(90deg, #00c853, #64dd17);
+        border: none;
+        border-radius: 8px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    #scan:hover {
+        filter: brightness(1.1);
+    }
+
+    #animation {
+        margin-top: 20px;
+        display: none;
+        font-size: 16px;
+        color: #00ff6a;
+        text-shadow: 0 0 8px #00ff6a;
+    }
+
+    @keyframes blink {
+        0% { opacity: 0.2; }
+        50% { opacity: 1; }
+        100% { opacity: 0.2; }
+    }
+
+    .blink {
+        animation: blink 1s infinite;
+    }
+
+    #result {
+        margin-top: 20px;
+        display: none;
+        background: #111;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #444;
+    }
+
+    .label {
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 4px;
+    }
+
+    .value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #00e676;
+    }
+</style>
+</head>
+<body>
+
+<div class="panel">
+    <h1>Agentenanalyse</h1>
+    <p>Ladet das Beweisfoto hoch, um die Identität zu bestätigen.</p>
+
+    <input type="file" id="fileInput" accept="image/*">
+
+    <button id="scan">Analyse starten</button>
+
+    <div id="animation" class="blink">Analysiere Bilddaten...</div>
+
+    <div id="result">
+        <div class="label">Nächste Koordinate (What3Words):</div>
+        <div id="w3w" class="value"></div>
+
+        <div class="label" style="margin-top:12px;">Codeschnipsel:</div>
+        <div id="code" class="value"></div>
+    </div>
+</div>
+
+<script>
+    // HIER DEINE EIGENEN HINWEISE EINTRAGEN:
+    const NEXT_W3W = "tiger.schlüssel.wolke";   // What3Words-Koordinate
+    const NEXT_CODE = "C7-Delta";               // Codeschnipsel
+
+    const fileInput = document.getElementById("fileInput");
+    const scanBtn = document.getElementById("scan");
+    const animation = document.getElementById("animation");
+    const result = document.getElementById("result");
+    const w3w = document.getElementById("w3w");
+    const code = document.getElementById("code");
+
+    scanBtn.addEventListener("click", () => {
+        if (!fileInput.files.length) {
+            alert("Bitte zuerst ein Bild hochladen!");
+            return;
+        }
+
+        // Animation starten
+        animation.style.display = "block";
+        result.style.display = "none";
+
+        // Fake-Analyse (3 Sekunden)
+        setTimeout(() => {
+            animation.style.display = "none";
+
+            // Hinweise anzeigen
+            w3w.textContent = NEXT_W3W;
+            code.textContent = NEXT_CODE;
+
+            result.style.display = "block";
+        }, 3000);
+    });
+</script>
+
+</body>
+</html>
